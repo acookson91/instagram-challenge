@@ -12,6 +12,7 @@ feature 'posts' do
 
   context 'Post created' do
     before do
+      sign_up('test@test.com', 'password')
       Post.create(caption: 'Summer 2k16')
     end
 
@@ -25,6 +26,7 @@ feature 'posts' do
       visit '/posts'
       click_link 'Add new post'
       fill_in 'Caption', with: 'Winter 2k16'
+      binding.pry
       click_button 'Create Post'
       expect(page).to have_content('Winter 2k16')
     end
@@ -32,6 +34,7 @@ feature 'posts' do
 
   context 'Update Post' do
     before do
+      sign_up('test@test.com', 'password')
       Post.create(caption: 'Summer 2k16')
     end
 
@@ -47,15 +50,23 @@ feature 'posts' do
 
   context 'Delete Post' do
     before do
-      Post.create(caption: 'Summer 2k16')
+      sign_up('test@test.com', 'password')
     end
 
     scenario 'user can delete post' do
-      visit '/posts'
+      post
       click_link 'Delete post'
       expect(page).not_to have_content 'Summer 2k16'
       expect(page).to have_content 'Post deleted'
     end
+
+    scenario 'signed out cannnot delete/edit post' do
+      visit '/'
+      click_link 'Sign out'
+      expect(page).not_to have_content 'Delete post'
+      expect(page).not_to have_content 'Edit post'
+    end
+
   end
 
 
