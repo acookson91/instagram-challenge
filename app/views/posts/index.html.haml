@@ -2,6 +2,12 @@
 - if Post.all.any?
   - Post.all.each do |post|
     %h3= post.caption
+    - if post.comments.any?
+      %ul
+        - post.comments.each do |comment|
+          %li
+            = comment.comment
+            
     = link_to 'Edit post', edit_post_path(post)
     = link_to 'Delete post', post_path(post), method: :delete
     = link_to 'Comment', new_post_comment_path(post)
