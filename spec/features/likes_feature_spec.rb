@@ -5,7 +5,7 @@ feature 'endorsing reviews' do
     Post.create(caption: 'Summer 2k16')
   end
 
-  scenario 'a user can endorse a review, which updates the review endorsement count' do
+  scenario 'a user can endorse a review, which updates the review endorsement count', js: true do
     visit '/'
     click_link 'Like' #are we endorsing restaurants or the review of the restaurants?
     expect(page).to have_content('1 like')

@@ -2,6 +2,7 @@
 - if Post.all.any?
   - Post.all.each do |post|
     %h3= post.caption
+    %p= pluralize post.likes.count, 'like'
     - if post.comments.any?
       %ul
         - post.comments.each do |comment|
