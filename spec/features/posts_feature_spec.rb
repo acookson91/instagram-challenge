@@ -13,7 +13,7 @@ feature 'posts' do
   context 'Post created' do
     before do
       sign_up('test@test.com', 'password')
-      Post.create(caption: 'Summer 2k16')
+      post
     end
 
     scenario 'post should show' do
@@ -26,7 +26,6 @@ feature 'posts' do
       visit '/posts'
       click_link 'Add new post'
       fill_in 'Caption', with: 'Winter 2k16'
-      binding.pry
       click_button 'Create Post'
       expect(page).to have_content('Winter 2k16')
     end

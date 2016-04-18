@@ -11,8 +11,13 @@
     - if current_user && post.user == current_user
       = link_to 'Edit post', edit_post_path(post)
       = link_to 'Delete post', post_path(post), method: :delete
-      = link_to 'Comment', new_post_comment_path(post)
 
+    - if current_user
+      = link_to "Like", post_likes_path(post), class: 'likes-link'
+      = link_to 'Comment', new_post_comment_path(post)
+      
+    %span.likes_count= post.likes.count
+    = 'like'.pluralize post.likes.count
 - else
   %h2 No posts available
 
